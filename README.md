@@ -17,4 +17,4 @@ ngrok http 8080
 
 ---
 Front's developer resources
-frontapp.github.io
+[frontapp.github.io](frontapp.github.io)
