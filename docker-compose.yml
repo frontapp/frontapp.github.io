@@ -1,0 +1,7 @@
+version: '2'
+services:
+  front:
+    build:
+      context: .
+    ports:
+      - "8080:80"
