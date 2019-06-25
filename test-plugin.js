@@ -28,6 +28,15 @@ function alertDialog() {
   });
 }
 
+function reportDialog() {
+  Front.report({
+    title: 'I\'m a report dialog',
+    message: 'You have been reported'
+  }, function() {
+      console.log('Report closed');
+  });
+}
+
 function confirmDialog() {
   Front.confirm({
     title: 'I\'m a confirm dialog',
@@ -52,6 +61,10 @@ function promptDialog() {
     else
       console.log('User cancelled');
   });
+}
+
+function copyText() {
+  Front.copyToClipboard('Front is awesome!');
 }
 
 function fetchTeammates() {
