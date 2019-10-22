@@ -1,6 +1,6 @@
 // The Front object is loaded through the Front script added in the header of the main HTML.
-// This object can be used to listen to conversation event data as it occurs on Front, and request information and to perform actions on Front.
-// See what all it can do here: https://dev.frontapp.com/plugin.html
+// This object can be used to listen to conversation event data as it occurs on Front, request information from Front, and perform actions on Front.
+// See the full plugin API documentation here: https://dev.frontapp.com/plugin.html
 
 // This keeps back if Front has returned a conversation to the plugin.
 let hasConversation;
