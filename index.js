@@ -2,9 +2,16 @@
 // This object can be used to listen to conversation event data as it occurs on Front, and request information and to perform actions on Front.
 // See what all it can do here: https://dev.frontapp.com/plugin.html
 
+// This keeps back if Front has returned a conversation to the plugin.
+let hasConversation;
+
 // Listen for the `conversation` event from Front and print its contents, then load the contact to the plugin.
 Front.on('conversation', function (data) {
   console.log('Event data', data);
+
+  // Set the state.
+  hasConversation = true;
+
   // Load the Contact information based off of the event data. And set tab to Info.
   loadContact(data.contact);
   showInfo();
@@ -13,6 +20,9 @@ Front.on('conversation', function (data) {
 // Listen for the `no_conversation` event.  This can happen when opened to Inbox Zero.
 Front.on('no_conversation', function () {
   console.log('No conversation');
+
+  // Set the state.
+  hasConversation = false;
 
   // Display `No Contact` data and clear the notes and set the tab to Info.
   displayContactInfo ("No Contact", "-");
@@ -33,6 +43,17 @@ function loadContact(contact) {
 
   //  Load the notes from our CRM data.
   displayNotes(crmData.notes);
+}
+
+// Create another note to add to the list.
+function createNote() {
+  if (!hasConversation) {
+    console.log('No conversation selected.');
+    return;
+  }
+
+  const note = mockPostNote();
+  displayNote(note);
 }
 
 // Displays Front contact information.
@@ -60,40 +81,9 @@ function displayNotes(notes) {
   // Reset the Notes column to make room for the newly found notes.
   clearNotes();
 
-  // Find the Notes Column object.
-  const noteColumns = document.getElementById("notes");
-
   // Add each Note to the Notes Column object.
   notes.forEach(note => {
-    // Build the shadowed backdrop for the Note.
-    let noteBlock = document.createElement("div");
-    noteBlock.classList.add("noteBlock");
-
-    // Build the Header of the note containing the author and the time written.
-    let noteHeader = document.createElement("p");
-    noteHeader.classList.add("row");
-
-    let noteHeaderAuthor = document.createElement("div");
-    noteHeaderAuthor.innerHTML = note.author;
-    noteHeaderAuthor.classList.add("font", "noteKey");
-
-    let noteHeaderTime = document.createElement("div");
-    noteHeaderTime.innerHTML = note.time;
-    noteHeaderTime.classList.add("font", "noteValue");
-
-    noteHeader.appendChild(noteHeaderAuthor);
-    noteHeader.appendChild(noteHeaderTime);
-
-    // Build the blurb of the note; 
-    let noteBlurb = document.createElement("p");
-    let noteBlurbText = document.createTextNode(note.blurb);
-    noteBlurb.classList.add("row", "font");
-    noteBlurb.appendChild(noteBlurbText);
-
-    // Append the Header and the Blurb to the Note block.
-    noteBlock.appendChild(noteHeader);
-    noteBlock.appendChild(noteBlurb);
-    noteColumns.appendChild(noteBlock);
+    displayNote(note);
   });
 }
 
@@ -127,4 +117,37 @@ function showNotes() {
   infoSection.classList.add("displayNone");
   const notesSection = document.getElementById("notesSection");
   notesSection.classList.remove("displayNone");
+}
+
+function displayNote(note) {
+  const noteColumns = document.getElementById("notes");
+  // Build the shadowed backdrop for the Note.
+  let noteBlock = document.createElement("div");
+  noteBlock.classList.add("noteBlock");
+
+  // Build the Header of the note containing the author and the time written.
+  let noteHeader = document.createElement("p");
+  noteHeader.classList.add("row");
+
+  let noteHeaderAuthor = document.createElement("div");
+  noteHeaderAuthor.innerHTML = note.author;
+  noteHeaderAuthor.classList.add("font", "noteKey");
+
+  let noteHeaderTime = document.createElement("div");
+  noteHeaderTime.innerHTML = note.time;
+  noteHeaderTime.classList.add("font", "noteValue");
+
+  noteHeader.appendChild(noteHeaderAuthor);
+  noteHeader.appendChild(noteHeaderTime);
+
+  // Build the blurb of the note;
+  let noteBlurb = document.createElement("p");
+  let noteBlurbText = document.createTextNode(note.blurb);
+  noteBlurb.classList.add("row", "font");
+  noteBlurb.appendChild(noteBlurbText);
+
+  // Append the Header and the Blurb to the Note block.
+  noteBlock.appendChild(noteHeader);
+  noteBlock.appendChild(noteBlurb);
+  noteColumns.appendChild(noteBlock);
 }

@@ -62,6 +62,7 @@
   font-weight: 600;
   color: #367FEE
 }
+
 .handle {
   font-size: 12px;
   color: #9B9C9E;
@@ -137,7 +138,6 @@
 
 .newNote {
   align-self: center;
-  line-height: 30px;
   text-align: center;
   font-size: 14px;
   background-color: #367FEE;
@@ -146,5 +146,6 @@
   width: 108px;
   margin: 12px;
   color: #FFFFFF;
+  cursor: pointer;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
 }

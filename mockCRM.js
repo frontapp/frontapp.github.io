@@ -1,4 +1,4 @@
-// This function returns mock CRM data and is being used as an analog for your functionality being added to the plugin.  
+// This function returns mock CRM data and is being used as an analog for your functionality being added to the plugin.
 // This simply picks random data and organizes it.
 function mockQueryCRM(email) {
   console.log(`Build mock CRM data for ${email}`);
@@ -13,6 +13,12 @@ function mockQueryCRM(email) {
   notes.push(mockNotesSamples[infoIndex]);
   notes.push(mockNotesSamples[infoIndex + 4]);
   return {notes, info};
+}
+
+// This function operates as a blackbox CRM function which creates a new note and returns it to be displayed.
+function mockPostNote() {
+  const noteIndex = Math.floor(Math.random() * 8);
+  return mockNotesSamples[noteIndex];
 }
 
 // Here's some fake CRM data to display in the plugin.
