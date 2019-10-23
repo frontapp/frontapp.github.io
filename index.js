@@ -2,7 +2,7 @@
 // This object can be used to listen to conversation event data as it occurs on Front, request information from Front, and perform actions on Front.
 // See the full plugin API documentation here: https://dev.frontapp.com/plugin.html
 
-// This keeps back if Front has returned a conversation to the plugin.
+// This keeps back of if Front has returned a conversation to the plugin.
 let hasConversation;
 
 // Listen for the `conversation` event from Front and print its contents, then load the contact to the plugin.

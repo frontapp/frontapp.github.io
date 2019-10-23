@@ -1,3 +1,5 @@
+// This file provides fake CRM functionality to provide information to the sample plugin and should be seen as an analog for the functionality developers add for their custom plugin.
+//
 // This function returns mock CRM data and is being used as an analog for your functionality being added to the plugin.
 // This simply picks random data and organizes it.
 function mockQueryCRM(email) {
