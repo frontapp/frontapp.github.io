@@ -61,8 +61,8 @@ function displayContactInfo (display_name, handle) {
   const nameElement = document.getElementById("name");
   const handleElement = document.getElementById("handle");
 
-  nameElement.innerHTML = display_name || handle;
-  handleElement.innerHTML = handle;
+  nameElement.textContent = display_name || handle;
+  handleElement.textContent = handle;
 }
 
 // Displays mocked CRM Info.
@@ -71,9 +71,9 @@ function displayCRMInfo (id, location, status) {
   const locationElement = document.getElementById("location");
   const statusElement = document.getElementById("status");
 
-  idElement.innerHTML = id;
-  locationElement.innerHTML = location;
-  statusElement.innerHTML = status;
+  idElement.textContent = id;
+  locationElement.textContent = location;
+  statusElement.textContent = status;
 }
 
 // Displays the mocked CRM notes.
@@ -90,7 +90,7 @@ function displayNotes(notes) {
 // Removes the currently displayed Notes.
 function clearNotes() {
   const noteColumns = document.getElementById("notes");
-  noteColumns.innerHTML = "";
+  noteColumns.innerHTML = null;
 }
 
 // Set the tab to Info and hide Notes.
@@ -130,11 +130,11 @@ function displayNote(note) {
   noteHeader.classList.add("row");
 
   let noteHeaderAuthor = document.createElement("div");
-  noteHeaderAuthor.innerHTML = note.author;
+  noteHeaderAuthor.textContent = note.author;
   noteHeaderAuthor.classList.add("font", "noteKey");
 
   let noteHeaderTime = document.createElement("div");
-  noteHeaderTime.innerHTML = note.time;
+  noteHeaderTime.textContent = note.time;
   noteHeaderTime.classList.add("font", "noteValue");
 
   noteHeader.appendChild(noteHeaderAuthor);
@@ -142,9 +142,8 @@ function displayNote(note) {
 
   // Build the blurb of the note;
   let noteBlurb = document.createElement("p");
-  let noteBlurbText = document.createTextNode(note.blurb);
+  noteBlurb.textContent = note.blurb;
   noteBlurb.classList.add("row", "font");
-  noteBlurb.appendChild(noteBlurbText);
 
   // Append the Header and the Blurb to the Note block.
   noteBlock.appendChild(noteHeader);
