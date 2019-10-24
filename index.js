@@ -25,48 +25,48 @@ Front.on('no_conversation', function () {
   hasConversation = false;
 
   // Display `No Contact` data and clear the notes and set the tab to Info.
-  displayContactInfo ("No Contact", "-");
-  displayCRMInfo("-", "-", "-");
+  displayContactInfo();
+  displayCRMInfo();
   clearNotes();
   showInfo();
 });
 
-// Loads the contact once the body of the plugin is loaded.
+// Asynchronously loads the contact through our mocked CRM service once the body of the plugin is loaded.
 // This will call our mocked CRM service for data and then add the contact information and notes to the page.
-function loadContact(contact) {
+async function loadContact(contact) {
   // Display Front contact info.
-  displayContactInfo(contact.display_name, contact.handle);
+  displayContactInfo(contact.display_name || contact.handle, contact.handle);
 
   // Build and display our CRM data.
-  const crmData = mockQueryCRM(contact.handle);
+  const crmData = await mockQueryCRM(contact.handle);
   displayCRMInfo(crmData.info.id, crmData.info.location, crmData.info.status);
 
   //  Load the notes from our CRM data.
   displayNotes(crmData.notes);
 }
 
-// Create another note to add to the list.
-function createNote() {
+// Asynchronously reate another note through our mocked CRM service to add to the list.
+async function createNote() {
   if (!hasConversation) {
     console.log('No conversation selected.');
     return;
   }
 
-  const note = mockPostNote();
+  const note = await mockPostNote();
   displayNote(note);
 }
 
 // Displays Front contact information.
-function displayContactInfo (display_name, handle) {
+function displayContactInfo (display_name = "No Contact", handle = "-") {
   const nameElement = document.getElementById("name");
   const handleElement = document.getElementById("handle");
 
-  nameElement.textContent = display_name || handle;
+  nameElement.textContent = display_name;
   handleElement.textContent = handle;
 }
 
 // Displays mocked CRM Info.
-function displayCRMInfo (id, location, status) {
+function displayCRMInfo (id = "-", location = "-", status = "-") {
   const idElement = document.getElementById("id");
   const locationElement = document.getElementById("location");
   const statusElement = document.getElementById("status");

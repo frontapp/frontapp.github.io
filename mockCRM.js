@@ -1,26 +1,31 @@
 // This file provides fake CRM functionality to provide information to the sample plugin and should be seen as an analog for the functionality developers add for their custom plugin.
 //
 // This function returns mock CRM data and is being used as an analog for your functionality being added to the plugin.
-// This simply picks random data and organizes it.
+// This simply picks a random index from the mockStatus and organizes data related to the index.
 function mockQueryCRM(email) {
-  console.log(`Build mock CRM data for ${email}`);
-  const infoIndex = Math.floor(Math.random() * 4);
-  const info = {
-    id: Math.floor(Math.random() * 1000),
-    location: 'Fake Company HQ',
-    status: mockStatuses[infoIndex]
-  }
+  return new Promise(function(resolve) {
+    console.log(`Build mock CRM data for ${email}`);
+    const infoIndex = Math.floor(Math.random() * mockStatuses.length);
+    const info = {
+      id: Math.floor(Math.random() * 1000),
+      location: 'Fake Company HQ',
+      status: mockStatuses[infoIndex]
+    }
 
-  let notes = [];
-  notes.push(mockNotesSamples[infoIndex]);
-  notes.push(mockNotesSamples[infoIndex + 4]);
-  return {notes, info};
+    let notes = [];
+    notes.push(mockNotesSamples[infoIndex]);
+    notes.push(mockNotesSamples[infoIndex + mockStatuses.length]);
+    resolve({notes, info});
+  });
 }
 
 // This function operates as a blackbox CRM function which creates a new note and returns it to be displayed.
+// This function picks a random index from mockNotesSamples and returns the relevant note.
 function mockPostNote() {
-  const noteIndex = Math.floor(Math.random() * 8);
-  return mockNotesSamples[noteIndex];
+  return new Promise(function(resolve) {
+    const noteIndex = Math.floor(Math.random() * mockNotesSamples.length);
+    resolve(mockNotesSamples[noteIndex]);
+  });
 }
 
 // Here's some fake CRM data to display in the plugin.
