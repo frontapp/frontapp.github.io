@@ -2,17 +2,17 @@
 // This object can be used to listen to conversation event data as it occurs on Front, request information from Front, and perform actions on Front.
 // See the full plugin API documentation here: https://dev.frontapp.com/plugin.html
 
-// This keeps back of if Front has returned a conversation to the plugin.
+// This keeps track of if Front has returned a conversation to the plugin.
 let hasConversation;
 
 // Listen for the `conversation` event from Front and print its contents, then load the contact to the plugin.
 Front.on('conversation', function (data) {
   console.log('Event data', data);
 
-  // Set the state.
+  // Set the conversation state.
   hasConversation = true;
 
-  // Load the Contact information based off of the event data. And set tab to Info.
+  // Load the Contact information based off of the event data. And set tab to 'Info'.
   loadContact(data.contact);
   showInfo();
 });
@@ -21,10 +21,10 @@ Front.on('conversation', function (data) {
 Front.on('no_conversation', function () {
   console.log('No conversation');
 
-  // Set the state.
+  // Set the conversation state.
   hasConversation = false;
 
-  // Display `No Contact` data and clear the notes and set the tab to Info.
+  // Display `No Contact` data and clear the notes and set the tab to 'Info'.
   displayContactInfo();
   displayCRMInfo();
   clearNotes();
@@ -45,7 +45,7 @@ async function loadContact(contact) {
   displayNotes(crmData.notes);
 }
 
-// Asynchronously reate another note through our mocked CRM service to add to the list.
+// Asynchronously create another note through our mocked CRM service to add to the list.
 async function createNote() {
   if (!hasConversation) {
     console.log('No conversation selected.');
@@ -140,7 +140,7 @@ function displayNote(note) {
   noteHeader.appendChild(noteHeaderAuthor);
   noteHeader.appendChild(noteHeaderTime);
 
-  // Build the blurb of the note;
+  // Build the Blurb of the note;
   let noteBlurb = document.createElement("p");
   noteBlurb.textContent = note.blurb;
   noteBlurb.classList.add("row", "font");

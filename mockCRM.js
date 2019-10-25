@@ -1,7 +1,7 @@
-// This file provides fake CRM functionality to provide information to the sample plugin and should be seen as an analog for the functionality developers add for their custom plugin.
+// This file provides fake CRM functionality to provide information to the sample plugin
+// and should be seen as an analog for the functionality developers add for their custom plugin.
 //
-// This function returns mock CRM data and is being used as an analog for your functionality being added to the plugin.
-// This simply picks a random index from the mockStatus and organizes data related to the index.
+// This function returns mock CRM data and simply picks a random index from the mockStatus and organizes data related to the index.
 function mockQueryCRM(email) {
   return new Promise(function(resolve) {
     console.log(`Build mock CRM data for ${email}`);
